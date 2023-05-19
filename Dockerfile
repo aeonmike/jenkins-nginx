@@ -1,8 +1,10 @@
-# Pull the minimal Ubuntu image
-FROM ubuntu
+# Use Ubuntu 20.04 as the base image
+FROM ubuntu:20.04
 
-# Install Nginx
-RUN apt-get -y update && apt-get -y install nginx
+# Install OpenJDK and other dependencies
+RUN apt-get update && \
+    apt-get install -y nginx curl && \
+    rm -rf /var/lib/apt/lists/*
 
 # Copy the Nginx config
 COPY default /etc/nginx/sites-available/default
