@@ -16,6 +16,6 @@ spec:
         - name: mydockerhub
       containers:
         - name: myweb
-          image: mikejc30/jenkins-nginx:devsecops-www
+          image: mikejc30/jenkins-nginx:devsecops-web
           ports:
             - containerPort: 80
