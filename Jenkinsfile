@@ -1,5 +1,5 @@
 pipeline {
-  agent {label 'clustermgr'} 
+  agent {label 'docker'} 
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t mikejc30/jenkins-nginx:devsecops-web .'
+        sh 'docker build -t mikejc30/jenkins-nginx:batch3 .'
       }
     }
     stage('Login') {
@@ -19,13 +19,13 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push mikejc30/jenkins-nginx:devsecops-web'
+        sh 'docker push mikejc30/jenkins-nginx:batch3'
       }
     }
     stage('Deploy') {
             steps {
               script {
-                   sh "kubectl apply -f service.yaml -f deployment.yaml"
+                   sh "docker run --name=mywebapp1 -d -p 8084:80 jenkins-nginx:batch3"
                 }
               }
             }

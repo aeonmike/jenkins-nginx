@@ -8,6 +8,7 @@ RUN apt-get update && \
 
 # Copy the Nginx config
 COPY default /etc/nginx/sites-available/default
+COPY finexo-html/. /usr/share/nginx/html
 
 # Expose the port for access
 EXPOSE 80/tcp
