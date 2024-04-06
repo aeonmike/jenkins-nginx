@@ -25,7 +25,7 @@ pipeline {
     stage('Deploy') {
             steps {
               script {
-                   sh "docker run --name=mywebapp1 -d -p 8084:80 jenkins-nginx:batch3"
+                   sh "docker run --name=mywebapp1 -d -p 8084:80 mikejc30/jenkins-nginx:batch3"
                 }
               }
             }
