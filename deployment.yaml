@@ -13,9 +13,9 @@ spec:
         app: myweb
     spec:
       imagePullSecrets:
-        - name: mydockerhub
+        - name: private-registry
       containers:
         - name: myweb
-          image: mikejc30/jenkins-nginx:devsecops-web
+          image: registry.devops.local/devops/jenkins-nginx
           ports:
             - containerPort: 80
