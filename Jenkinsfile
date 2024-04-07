@@ -1,15 +1,15 @@
 pipeline {
-  agent {label 'docker'} 
+  agent {label 'cluster-manager'} 
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    DOCKERHUB_CREDENTIALS = credentials('harbor')
   }
   stages {
     stage('Build') {
       steps {
-        sh 'docker build -t mikejc30/jenkins-nginx:batch3 .'
+        sh 'docker build -t registry.devops.local/devops/jenkins-nginx .'
       }
     }
     stage('Login') {
@@ -19,13 +19,13 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push mikejc30/jenkins-nginx:batch3'
+        sh 'docker push registry.devops.local/devops/jenkins-nginx'
       }
     }
     stage('Deploy') {
             steps {
               script {
-                   sh "docker run --name=mywebapp1 -d -p 8084:80 mikejc30/jenkins-nginx:batch3"
+                   sh "kubectl apply -f service.yml -f deployment.yml"
                 }
               }
             }
