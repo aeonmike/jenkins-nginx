@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubernetes-deployment
+  name: webapp02-deployment
 spec:
   replicas: 2
   selector:
@@ -12,9 +12,11 @@ spec:
       labels:
         app: webapp02
     spec:
+      imagePullSecrets:
+      - name: regcred  # <-- This is the Docker login secret
       containers:
       - name: webapp-container
-        image: mikecabalin09/mikejc30:build-2
+        image: mikecabalin09/mikejc30:build-2  # <-- Replace with your actual image/tag
         ports:
         - containerPort: 80
 ---
@@ -27,5 +29,5 @@ spec:
   selector:
     app: webapp02
   ports:
-  - port: 8080
-    targetPort: 80
+  - port: 8080       # external port
+    targetPort: 80   # container port
