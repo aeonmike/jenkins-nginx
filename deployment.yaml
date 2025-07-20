@@ -13,8 +13,8 @@ spec:
         app: webapp
     spec:
       containers:
-      - name: ${CONTAINER_NAME}
-        image: ${IMAGE_NAME}
+      - name: webapp-container
+        image: mikecabalin09/mikejc30:build-2
         ports:
         - containerPort: 80
 ---
